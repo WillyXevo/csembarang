@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+
+{% block content %}
+<style type="text/css">
+	.container-chord{
+		width: 100%;
+		height: 100vh;
+	}
+
+	.breadcrumbs, .sizer{
+		display: none;
+	}
+	.entry-title {
+	    background: none;
+	    padding: 0;
+	    margin: 10px 3px;
+	    text-decoration: none;
+	    color: #000;
+	    font-size: 24px;
+	    line-height: 1.5em;
+	}
+	.share-container, .displaynone, .assistive-text, .related, .lihat-semua-chord, #allchord{
+		display: none;
+	}
+</style>
+<div class="jumbotron">
+	<h1 class="display-4">CSembarang!</h1>
+	<p class="lead">Gak Sepiro Random and Play!.</p>
+	<hr class="my-4">
+	<button id="btnrandom" class="btn btn-danger btn-lg" type="button">Random</button>
+</div>
+<div class="container-chord">
+	&nbsp;
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		load_chord();
+		$("#btnrandom").click(function(){
+			document.location= "/whitelist/{{btnran}}";
+		});
+	});
+
+	function load_chord(){
+		$(".container-chord").load("/wrandom/{{seed}}");
+		console.log("hahah");
+	}
+</script>
+{% endblock %}

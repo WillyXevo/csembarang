@@ -1,0 +1,101 @@
+{% extends "index.html" %}
+
+{% block content %}
+<hr class="my-4">
+<div class="content">
+	<form method="post" action="/list_save">
+	{% if form %}
+	<button class="btn btn-primary btn-lg" type="submit">Simpan</button>
+	<hr class="my-4">
+	{% endif %}
+	<ul class="list-unstyled">
+		{% for row in data %}
+			<li class="media" id="md-{{ row }}">
+				<input type="hidden" name="code[]" value="{{ row }}" >
+			</li>
+	    {% endfor %}
+	</ul>
+	</form>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".media").each(function(e){
+			var id = $(this).attr("id");
+			var val = $(this).children().val();
+			//console.log([id, val]);
+			gen_list(val);
+		});
+
+
+		$(".close").click(function(){
+			var id = $(this).attr("attr-id");
+			$("#md-"+id).remove();
+		});
+	});
+
+	function remove_list(code) {
+		$("#md-"+code).remove();
+	}
+
+	function gen_list(code) {
+		console.log("Init Request "+code);
+		$.ajax({
+			url: "/listj/"+code, 
+			beforeSend: function(xhr){
+				console.log("Request "+code);
+				var tmp = {"code":code, "url":"#", "title":"Loading", "img":"http://placekitten.com/200/300"};
+				dom_create(tmp);
+			},
+			success: function(result){
+				console.log("Result "+code);
+    			var jj = JSON.parse(result);
+    			//console.log(jj);
+    			//console.log(jj[0].code);
+    			dom_create(jj[0]);
+  			}
+  		});
+		
+	}
+
+	function dom_create(code) {
+		var htt = '<input type="hidden" name="code_'+code.code+'" value="'+code.code+'" >';
+		htt += '<img src="'+code.img+'" class="mr-3" alt="'+code.code+'">';
+		htt += '<div class="media-body">';
+			htt += '<div class="card border-dark mb-3">';
+				htt += '<div class="card-header">';
+					htt += '<button type="button" onclick="remove_list(\''+code.code+'\')" class="ml-2 mb-1 close" attr-id="'+code.code+'" aria-label="Close"><span aria-hidden="true">×</span></button>';
+					htt += '<h5>'+code.code+'</h5>';
+				htt += '</div>';
+				htt += '<a href="'+code.url+'" target="blank" class="list_nh">';
+					htt += '<div class="card-body text-dark">';
+						htt += '<h5 class="mt-0 mb-1">'+code.title+'</h5>';
+						htt += '<p>'+code.url+'</p>';
+					htt += '</div>';
+				htt += '</a>';
+			htt += '</div>';
+		htt += '</div>';
+		$("#md-"+code.code).html(htt);
+	}
+
+</script>
+{% endblock %}
+
+<!-- 
+<li class="media" id="md-{{ row.code }}">
+	<input type="hidden" name="code" value="{{ row.code }}" >
+	<img src="{{ row.img }}" class="mr-3" alt="{{ row.url }}">
+	<div class="media-body">
+		<div class="card border-dark mb-3">
+			<div class="card-header">
+				<button type="button" class="ml-2 mb-1 close" attr-id="{{ row.code }}" aria-label="Close"><span aria-hidden="true">×</span></button>
+			</div>
+			<a href="{{ row.url }}" target="blank" class="list_nh">
+				<div class="card-body text-dark">
+					<h5 class="mt-0 mb-1">{{ row.title }}</h5>
+					<p>{{ row.url }}</p>
+				</div>
+			</a>
+		</div>
+	</div>
+</li>
+<br> -->
