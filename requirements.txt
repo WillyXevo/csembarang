@@ -9,11 +9,9 @@ ItsAGramLive==1.6
 itsdangerous==2.0.1
 Jinja2==3.0.3
 MarkupSafe==2.0.1
-Pillow==8.0.1
 pyfiglet==0.8.post1
 pyperclip==1.8.2
 requests==2.26.0
 soupsieve==2.3.1
 urllib3==1.26.7
 Werkzeug==2.0.2
-gunicorn
