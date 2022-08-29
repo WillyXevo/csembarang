@@ -1,2 +1,2 @@
 # CSembarang
-randim and play!
+Random and Play!
