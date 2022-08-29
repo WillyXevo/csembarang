@@ -36,5 +36,5 @@ def random(seed):
 
 @app.route('/wrandom/<seed>', methods=['GET'])
 def wrandom(seed):
-	ch = cs.cparser(cs.wdata[int(seed)])
-	return ch
+    ch = cs.cparser(cs.wdata[int(seed)])
+    return ch
