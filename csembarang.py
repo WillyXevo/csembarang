@@ -65,8 +65,10 @@ class Csembarang:
 
 
 if __name__ == '__main__':
+    """
     cs = Csembarang()
     
     for i in range(0,10):
         a = cs.randin(len(cs.wdata))
         print(a)
+    """
